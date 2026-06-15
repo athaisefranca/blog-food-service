@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import { categories } from '../../data/categories';
+import { segments } from '../../data/segments';
+
+const posts = await getCollection('posts');
+
+const visiblePosts = posts.filter((post) => post.data.status !== 'archived');
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Blog Food Service</title>
+    <meta
+      name="description"
+      content="Conteúdos sobre gestão, margem, cardápio, marketing, presença digital e tecnologia para negócios de alimentação."
+    />
+  </head>
+
+  <body>
+    <main style="font-family: Arial, sans-serif; max-width: 1000px; margin: 80px auto; padding: 0 24px;">
+      <a href="/">← Voltar para home</a>
+
+      <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
+        Blog Food Service
+      </p>
+
+      <h1>Gestão, marketing e presença digital para negócios de alimentação</h1>
+
+      <p>
+        Conteúdos para restaurantes, confeitarias, cafeterias, hamburguerias, bares, deliverys e dark kitchens crescerem com mais clareza, margem e estratégia.
+      </p>
+
+      <h2>Categorias principais</h2>
+
+      <ul>
+        {categories.map((category) => (
+          <li>
+            <a href={`/categorias/${category.slug}`}>{category.title}</a>
+            <p>{category.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Páginas por tipo de negócio</h2>
+
+      <ul>
+        {segments.map((segment) => (
+          <li>
+            <a href={`/para/${segment.slug}`}>{segment.title}</a>
+            <p>{segment.description}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Posts cadastrados</h2>
+
+      {visiblePosts.length === 0 ? (
+        <p>Nenhum post encontrado ainda.</p>
+      ) : (
+        <ul>
+          {visiblePosts.map((post) => (
+            <li>
+              <a href={`/blog/${post.data.slug}`}>
+                {post.data.title}
+              </a>
+              <p>{post.data.description}</p>
+              <small>
+                Categoria: {post.data.category} | Tipo: {post.data.contentType}
+              </small>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  </body>
+</html>

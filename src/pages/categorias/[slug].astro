@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import { categories } from '../../data/categories';
+
+export async function getStaticPaths() {
+  return categories.map((category) => ({
+    params: {
+      slug: category.slug,
+    },
+    props: {
+      category,
+    },
+  }));
+}
+
+const { category } = Astro.props;
+
+const posts = await getCollection('posts');
+const categoryPosts = posts.filter(
+  (post) => post.data.category === category.slug && post.data.status !== 'archived'
+);
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{category.title} | Blog Food Service</title>
+    <meta name="description" content={category.description} />
+  </head>
+
+  <body>
+    <main style="font-family: Arial, sans-serif; max-width: 900px; margin: 80px auto; padding: 0 24px;">
+      <a href="/blog">← Voltar para o blog</a>
+
+      <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
+        Categoria
+      </p>
+
+      <h1>{category.title}</h1>
+
+      <p>{category.description}</p>
+
+      <h2>Posts desta categoria</h2>
+
+      {categoryPosts.length === 0 ? (
+        <p>Ainda não há posts publicados nesta categoria.</p>
+      ) : (
+        <ul>
+          {categoryPosts.map((post) => (
+            <li>
+              <a href={`/blog/${post.data.slug}`}>{post.data.title}</a>
+              <p>{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  </body>
+</html>

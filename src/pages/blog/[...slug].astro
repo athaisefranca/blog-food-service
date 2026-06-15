@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  return posts.map((post) => ({
+    params: {
+      slug: post.data.slug,
+    },
+    props: {
+      post,
+    },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{post.data.title}</title>
+    <meta name="description" content={post.data.description} />
+    {post.data.noindex && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+
+  <body>
+    <main style="font-family: Arial, sans-serif; max-width: 760px; margin: 80px auto; padding: 0 24px;">
+      <a href="/blog">← Voltar para o blog</a>
+
+      <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
+        {post.data.category}
+      </p>
+
+      <h1>{post.data.title}</h1>
+
+      <p>{post.data.description}</p>
+
+      <p>
+        <strong>Formato:</strong> {post.data.contentType}<br />
+        <strong>Funil:</strong> {post.data.funnelStage}<br />
+        <strong>CTA:</strong> {post.data.cta}
+      </p>
+
+      {post.data.segments.length > 0 && (
+        <>
+          <h2>Aplicável para</h2>
+          <ul>
+            {post.data.segments.map((segment) => (
+              <li>
+                <a href={`/para/${segment}`}>{segment}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <hr />
+
+      <Content />
+    </main>
+  </body>
+</html>
