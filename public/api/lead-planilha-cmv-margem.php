@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 $to = 'contato@athaisefranca.com.br';
 $successUrl = '/obrigado/planilha-cmv-margem';
 $errorUrl = '/materiais/planilha-cmv-margem?erro=envio';
@@ -109,8 +113,12 @@ $headers[] = 'From: Blog Food Service <contato@athaisefranca.com.br>';
 $headers[] = 'Reply-To: ' . $email;
 $headers[] = 'X-Mailer: PHP/' . phpversion();
 
-@mail($to, $encodedSubject, $body, implode("\r\n", $headers));
+$sent = mail($to, $encodedSubject, $body, implode("\r\n", $headers));
 
 @file_put_contents($rateFile, (string) time());
+
+if (!$sent) {
+    redirect_to('/materiais/planilha-cmv-margem?erro=envio');
+}
 
 redirect_to($successUrl);
