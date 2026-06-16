@@ -15,6 +15,7 @@ const segmentSlugs = [
   'hamburguerias',
   'cafeterias',
   'confeitarias',
+  'pizzarias',
   'bares',
   'deliverys',
   'dark-kitchens',

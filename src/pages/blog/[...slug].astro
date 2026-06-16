@@ -32,31 +32,12 @@ const { Content } = await render(post);
       <a href="/blog">← Voltar para o blog</a>
 
       <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
-        {post.data.category}
+        Blog Food Service
       </p>
 
       <h1>{post.data.title}</h1>
 
       <p>{post.data.description}</p>
-
-      <p>
-        <strong>Formato:</strong> {post.data.contentType}<br />
-        <strong>Funil:</strong> {post.data.funnelStage}<br />
-        <strong>CTA:</strong> {post.data.cta}
-      </p>
-
-      {post.data.segments.length > 0 && (
-        <>
-          <h2>Aplicável para</h2>
-          <ul>
-            {post.data.segments.map((segment) => (
-              <li>
-                <a href={`/para/${segment}`}>{segment}</a>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
 
       <hr />
 

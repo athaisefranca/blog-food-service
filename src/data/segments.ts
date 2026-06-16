@@ -41,6 +41,12 @@ export const segments = [
     description:
       'Conteúdos para dark kitchens sobre operação enxuta, cardápio, canais digitais, produção e crescimento.',
   },
+  {
+  title: 'Para Pizzarias',
+  slug: 'pizzarias',
+  description:
+    'Conteúdos para pizzarias sobre ficha técnica, CMV, precificação, delivery, cardápio, combos, margem e presença local.',
+  },
 ] as const;
 
 export type SegmentSlug = (typeof segments)[number]['slug'];
