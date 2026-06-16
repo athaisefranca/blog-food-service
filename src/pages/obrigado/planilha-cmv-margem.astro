@@ -1,0 +1,60 @@
+---
+import { leadMagnets } from '../../data/leadMagnets';
+
+const material = leadMagnets['planilha-cmv-margem'];
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sua planilha está pronta</title>
+    <meta
+      name="description"
+      content="Acesse a Planilha de CMV e Margem e faça uma cópia para preencher seus próprios dados."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <main style="max-width: 760px; margin: 0 auto; padding: 48px 20px;">
+      <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
+        Material gratuito
+      </p>
+
+      <h1>Sua planilha está pronta.</h1>
+
+      <p>
+        Agora você já pode acessar a Planilha de CMV e Margem e começar a calcular se seus pratos, produtos ou pedidos estão vendendo com margem.
+      </p>
+
+      <p>
+        A planilha ajuda você a considerar ingredientes, embalagem, canal de venda, taxa de app ou delivery, cupom, frete subsidiado, CMV puro e margem após canal.
+      </p>
+
+      <p>
+        Lembre-se: para preencher seus próprios dados, faça uma cópia da planilha para o seu Google Drive.
+      </p>
+
+      <h2>Como usar</h2>
+
+      <ol>
+        <li>Clique no botão abaixo.</li>
+        <li>Faça uma cópia da planilha no seu Google Drive.</li>
+        <li>Preencha seus ingredientes, embalagens, canais e produtos.</li>
+        <li>Veja o CMV, a margem e os alertas de atenção.</li>
+      </ol>
+
+      <p>
+        <a
+          href={material.spreadsheetCopyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style="display: inline-block; padding: 14px 18px; border: 1px solid currentColor; text-decoration: none; font-weight: 700;"
+        >
+          Abrir planilha e fazer uma cópia
+        </a>
+      </p>
+    </main>
+  </body>
+</html>

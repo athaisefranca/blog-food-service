@@ -1,0 +1,47 @@
+---
+import LeadCaptureForm from '../../components/LeadCaptureForm.astro';
+import { leadMagnets } from '../../data/leadMagnets';
+
+const material = leadMagnets['planilha-cmv-margem'];
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>{material.title}</title>
+    <meta
+      name="description"
+      content="Baixe a Planilha de CMV e Margem para calcular custos, embalagem, taxas de app ou delivery e entender se seus produtos vendem com margem."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <main style="max-width: 760px; margin: 0 auto; padding: 48px 20px;">
+      <p style="text-transform: uppercase; letter-spacing: .08em; font-size: 12px;">
+        Material gratuito
+      </p>
+
+      <h1>Planilha de CMV e Margem: pare de vender no escuro</h1>
+
+      <p>
+        Você sabe se os produtos do seu cardápio realmente vendem com margem?
+      </p>
+
+      <p>
+        A <strong>Planilha de CMV e Margem</strong> foi criada para donos e gestores de negócios de alimentação que querem parar de vender no escuro.
+      </p>
+
+      <p>
+        Com ela, é possível calcular o custo dos ingredientes, incluir embalagem, considerar taxas de app ou delivery e enxergar quanto sobra depois da venda.
+      </p>
+
+      <p>
+        Ela serve para restaurantes, pizzarias, hamburguerias, cafeterias, confeitarias, bares, deliverys e dark kitchens que precisam tomar decisões melhores sobre preço, cardápio, promoções e canais de venda.
+      </p>
+
+      <LeadCaptureForm />
+    </main>
+  </body>
+</html>
