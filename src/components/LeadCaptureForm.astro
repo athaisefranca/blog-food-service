@@ -12,10 +12,13 @@ const segments = [
 ];
 
 const thankYouRoute = '/obrigado/planilha-cmv-margem';
+const formAction = '/api/lead-planilha-cmv-margem.php';
 ---
 
 <form
   id="lead-capture-form"
+  action={formAction}
+  method="POST"
   data-form="planilha-cmv-margem"
   data-origin="blog"
   data-source-article="cmv-restaurante"
@@ -25,48 +28,27 @@ const thankYouRoute = '/obrigado/planilha-cmv-margem';
 >
   <div>
     <label for="name">Nome</label>
-    <input
-      id="name"
-      name="name"
-      type="text"
-      required
-      autocomplete="name"
-      style="width: 100%; padding: 12px; margin-top: 6px;"
-    />
+    <input id="name" name="name" type="text" required autocomplete="name" style="width: 100%; padding: 12px; margin-top: 6px;" />
   </div>
 
   <div>
     <label for="email">E-mail</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      required
-      autocomplete="email"
-      style="width: 100%; padding: 12px; margin-top: 6px;"
-    />
+    <input id="email" name="email" type="email" required autocomplete="email" style="width: 100%; padding: 12px; margin-top: 6px;" />
+  </div>
+
+  <div>
+    <label for="whatsapp">WhatsApp <span style="font-size: 13px; opacity: 0.75;">(opcional)</span></label>
+    <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" style="width: 100%; padding: 12px; margin-top: 6px;" />
   </div>
 
   <div>
     <label for="businessName">Nome do negócio</label>
-    <input
-      id="businessName"
-      name="businessName"
-      type="text"
-      required
-      autocomplete="organization"
-      style="width: 100%; padding: 12px; margin-top: 6px;"
-    />
+    <input id="businessName" name="businessName" type="text" required autocomplete="organization" style="width: 100%; padding: 12px; margin-top: 6px;" />
   </div>
 
   <div>
     <label for="businessSegment">Segmento do negócio</label>
-    <select
-      id="businessSegment"
-      name="businessSegment"
-      required
-      style="width: 100%; padding: 12px; margin-top: 6px;"
-    >
+    <select id="businessSegment" name="businessSegment" required style="width: 100%; padding: 12px; margin-top: 6px;">
       <option value="">Selecione uma opção</option>
       {segments.map((segment) => (
         <option value={segment}>{segment}</option>
@@ -74,33 +56,48 @@ const thankYouRoute = '/obrigado/planilha-cmv-margem';
     </select>
   </div>
 
+  <div aria-hidden="true" style="position: absolute; left: -9999px;">
+    <label for="website">Site</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <input type="hidden" id="startedAt" name="startedAt" value="" />
   <input type="hidden" name="origin" value="blog" />
   <input type="hidden" name="sourceArticle" value="cmv-restaurante" />
   <input type="hidden" name="leadMagnet" value="planilha-cmv-margem" />
   <input type="hidden" name="cta" value="cta-cmv-artigo-01" />
 
-  <p style="font-size: 14px; line-height: 1.5;">
-    Ao enviar este formulário, você concorda em receber o material solicitado e comunicações da Thaise França com conteúdos, orientações e ofertas relacionadas a gestão, margem, operação, marketing e crescimento para negócios de alimentação. Você poderá cancelar o recebimento a qualquer momento.
-  </p>
+  <label style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5;">
+    <input type="checkbox" name="consent" value="accepted" required style="margin-top: 4px;" />
+    <span>
+      Ao enviar este formulário, você concorda em receber o material solicitado e comunicações da Thaise França sobre gestão, margem, operação, marketing e crescimento para negócios de alimentação. Essas comunicações podem acontecer por e-mail e, caso você informe seu WhatsApp, também por mensagem. Você poderá cancelar o recebimento a qualquer momento ou solicitar a remoção dos seus dados entrando em contato pelo e-mail contato@athaisefranca.com.br.
+    </span>
+  </label>
 
-  <button
-    type="submit"
-    style="padding: 14px 18px; cursor: pointer; font-weight: 700;"
-  >
+  <button type="submit" style="padding: 14px 18px; cursor: pointer; font-weight: 700;">
     Baixar planilha gratuita
   </button>
 
   <p style="font-size: 13px; opacity: 0.75;">
-    Integração com ferramenta de e-mail marketing pendente. Nesta etapa, o formulário apenas simula o envio e redireciona para a página de obrigado.
+    Seus dados serão usados para entregar o material solicitado e registrar seu consentimento de contato.
   </p>
 </form>
 
 <script define:vars={{ thankYouRoute }}>
   const form = document.querySelector('#lead-capture-form');
+  const startedAt = document.querySelector('#startedAt');
 
-  if (form) {
+  if (startedAt) {
+    startedAt.value = String(Date.now());
+  }
+
+  if (form && ['localhost', '127.0.0.1'].includes(window.location.hostname)) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+
+      if (!form.reportValidity()) {
+        return;
+      }
 
       window.location.href = thankYouRoute;
     });

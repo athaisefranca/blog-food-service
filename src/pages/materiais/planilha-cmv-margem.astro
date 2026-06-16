@@ -41,6 +41,23 @@ const material = leadMagnets['planilha-cmv-margem'];
         Ela serve para restaurantes, pizzarias, hamburguerias, cafeterias, confeitarias, bares, deliverys e dark kitchens que precisam tomar decisões melhores sobre preço, cardápio, promoções e canais de venda.
       </p>
 
+<div
+  id="form-error"
+  hidden
+  style="padding: 12px; border: 1px solid currentColor; margin: 20px 0;"
+>
+  Não conseguimos enviar seus dados agora. Confira as informações e tente novamente.
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const errorBox = document.querySelector('#form-error');
+
+  if (params.has('erro') && errorBox) {
+    errorBox.removeAttribute('hidden');
+  }
+</script>
+
       <LeadCaptureForm />
     </main>
   </body>
